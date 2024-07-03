@@ -7,7 +7,7 @@
     <groupId>com.power4j.kit</groupId>
     <artifactId>screw</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <inceptionYear>2020</inceptionYear>
     <name>screw</name>
     <description>简洁好用的数据库表结构文档生成工具</description>
@@ -61,7 +61,7 @@
         <HikariCP.version>3.4.5</HikariCP.version>
         <lombok.version>1.18.32</lombok.version>
         <freemarker.version>2.3.30</freemarker.version>
-        <velocity.version>1.7</velocity.version>
+        <velocity.version>2.3</velocity.version>
         <velocity-tools.version>2.0</velocity-tools.version>
         <dbutils.version>1.7</dbutils.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -168,7 +168,7 @@
             <!-- velocity -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
+                <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity.version}</version>
             </dependency>
             <dependency>

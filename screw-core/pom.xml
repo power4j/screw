@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.power4j.kit</groupId>
         <artifactId>screw</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
@@ -43,7 +43,7 @@
         <!-- velocity -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
+            <artifactId>velocity-engine-core</artifactId>
             <scope>provided</scope>
         </dependency>
         <!--junit-->
