@@ -28,7 +28,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.log.NullLogChute;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -75,11 +74,9 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
             velocityEngine.setProperty("file.resource.loader.class",
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         }
-        velocityEngine.setProperty("runtime.log.logsystem.class", NullLogChute.class.getName());
         velocityEngine.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH, "");
         velocityEngine.setProperty(Velocity.ENCODING_DEFAULT, DEFAULT_ENCODING);
         velocityEngine.setProperty(Velocity.INPUT_ENCODING, DEFAULT_ENCODING);
-        velocityEngine.setProperty("file.resource.loader.unicode", "true");
     }
 
     /**
