@@ -1,0 +1,72 @@
+#
+# screw - 简洁好用的数据库表结构文档生成工具
+# Copyright © 2020 SanLi (qinggang.zuo@gmail.com)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+name: Publish to the Maven Central
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - snapshot
+    tags:
+      - '*'
+
+jobs:
+  oss-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache local Maven repository
+        uses: actions/cache@v3.3.1
+        env:
+          cache-name: cache-mvn
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+#      - name: Build with Maven
+#        run: mvn -B package --file pom.xml
+
+#      - name: Publish to GitHub Packages Apache Maven
+#        run: mvn deploy
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
+
+      - name: Import GPG
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.MAVEN_GPG_KEY }}
+          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+
+      - name: Publish to Maven Central
+        run: ./mvnw --settings ./ossrh-settings.xml clean deploy -Dgpg.passphrase=${MAVEN_GPG_PASSPHRASE} -DskipTests=true -P 'oss-release'
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_TOKEN_USER }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_TOKEN_PWD }}
