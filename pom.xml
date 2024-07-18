@@ -82,7 +82,7 @@
         <fastjson.version>1.2.75</fastjson.version>
         <poi.version>4.1.2</poi.version>
         <druid.version>1.2.3</druid.version>
-        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-lang3.version>3.15.0</commons-lang3.version>
         <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
